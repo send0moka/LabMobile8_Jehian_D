@@ -1,0 +1,179 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Data Mahasiswa</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Data Mahasiswa</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-button (click)="openModalTambah(true)" expand="block">
+      <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+      Tambah Mahasiswa
+    </ion-button>
+  </ion-card>
+
+  <ion-card *ngIf="!dataMahasiswa || dataMahasiswa.length === 0">
+    <ion-card-content>
+      <ion-text color="medium">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        Data Mahasiswa Kosong
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngFor="let item of dataMahasiswa">
+    <ion-item>
+      <ion-label>
+        <ion-icon name="person-outline"></ion-icon>
+        {{item.nama}}
+        <p>
+          <ion-icon name="school-outline"></ion-icon>
+          {{item.jurusan}}
+        </p>
+      </ion-label>
+      <ion-button expand="block" (click)="openModalEdit(true,item.id)">
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+        Edit
+      </ion-button>
+      <ion-button color="danger" slot="end" (click)="konfirmasiHapus(item.id)">
+        <ion-icon slot="start" name="trash-outline"></ion-icon>
+        Hapus
+      </ion-button>
+    </ion-item>
+  </ion-card>
+
+  <ion-modal [isOpen]="modalTambah" (ionModalDidDismiss)="cancel()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">
+              <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+              Batal
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Tambah Mahasiswa</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-icon slot="start" name="person-outline"></ion-icon>
+          <ion-input 
+            label="Nama Mahasiswa" 
+            labelPlacement="floating" 
+            required 
+            [(ngModel)]="nama"
+            (ionInput)="validateNama($event)"
+            placeholder="Masukkan Nama Mahasiswa" 
+            type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="namaError">
+          <ion-icon slot="start" name="alert-circle-outline" color="danger"></ion-icon>
+          <ion-text color="danger">{{namaError}}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-icon slot="start" name="school-outline"></ion-icon>
+          <ion-select label="Jurusan Mahasiswa" 
+            labelPlacement="floating" 
+            required 
+            [(ngModel)]="jurusan"
+            placeholder="Pilih Jurusan Mahasiswa">
+            <ion-select-option value="Informatika">Informatika</ion-select-option>
+            <ion-select-option value="Teknik Sipil">Teknik Sipil</ion-select-option>
+            <ion-select-option value="Teknik Mesin">Teknik Mesin</ion-select-option>
+            <ion-select-option value="Teknik Elektro">Teknik Elektro</ion-select-option>
+            <ion-select-option value="Teknik Geologi">Teknik Geologi</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-button type="button" 
+              (click)="tambahMahasiswa()" 
+              color="primary" 
+              shape="full" 
+              expand="block"
+              [disabled]="!isFormValid()">
+              <ion-icon slot="start" name="save-outline"></ion-icon>
+              Tambah Mahasiswa
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal [isOpen]="modalEdit" (ionModalDidDismiss)="cancel()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">
+              <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+              Batal
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Edit Mahasiswa</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-icon slot="start" name="person-outline"></ion-icon>
+          <ion-input 
+            label="Nama Mahasiswa" 
+            labelPlacement="floating" 
+            required 
+            [(ngModel)]="nama"
+            (ionInput)="validateNama($event)"
+            placeholder="Masukkan Nama Mahasiswa" 
+            type="text">
+          </ion-input>
+        </ion-item>
+        <ion-item *ngIf="namaError">
+          <ion-icon slot="start" name="alert-circle-outline" color="danger"></ion-icon>
+          <ion-text color="danger">{{namaError}}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-icon slot="start" name="school-outline"></ion-icon>
+          <ion-select label="Jurusan Mahasiswa" 
+            labelPlacement="floating" 
+            required 
+            [(ngModel)]="jurusan"
+            placeholder="Pilih Jurusan Mahasiswa">
+            <ion-select-option value="Informatika">Informatika</ion-select-option>
+            <ion-select-option value="Teknik Sipil">Teknik Sipil</ion-select-option>
+            <ion-select-option value="Teknik Mesin">Teknik Mesin</ion-select-option>
+            <ion-select-option value="Teknik Elektro">Teknik Elektro</ion-select-option>
+            <ion-select-option value="Teknik Geologi">Teknik Geologi</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-input required [(ngModel)]="id" type="hidden">
+        </ion-input>
+        <ion-row>
+          <ion-col>
+            <ion-button type="button" 
+              (click)="editMahasiswa()" 
+              color="primary" 
+              shape="full" 
+              expand="block"
+              [disabled]="!isFormValid()">
+              <ion-icon slot="start" name="save-outline"></ion-icon>
+              Edit Mahasiswa
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
