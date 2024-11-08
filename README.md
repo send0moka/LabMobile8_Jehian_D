@@ -17,8 +17,7 @@ Jehian H1D022006 Shift C->D
 
 ### 1. Login Page
 
-<img src="docs/uname0.png" height="300">
-<img src="docs/pw0.png" height="300">
+<img src="docs/login.png" height="300">
 
 - Validasi username & password
 - Password dihash u/ keamanan
@@ -26,8 +25,7 @@ Jehian H1D022006 Shift C->D
 
 ### 2. Mahasiswa Page (Read)
 
-<img src="docs/home0.png" height="300">
-<img src="docs/home1.png" height="300">
+<img src="docs/home.png" height="300">
 
 - Menampilkan daftar mahasiswa dalam bentuk card
 - Setiap card menampilkan nama & jurusan mahasiswa
@@ -36,10 +34,7 @@ Jehian H1D022006 Shift C->D
 
 ### 3. Tambah Data (Create)
 
-<img src="docs/min3.png" height="300">
-<img src="docs/angka.png" height="300">
-<img src="docs/drop.png" height="300">
-<img src="docs/tambah.png" height="300">
+<img src="docs/create.png" height="300">
 
 - Modal u/ menambah data mahasiswa baru
 - Validasi input nama (min. 3 char, hanya huruf)
@@ -49,7 +44,6 @@ Jehian H1D022006 Shift C->D
 ### 4. Edit Data (Update)
 
 <img src="docs/edit.png" height="300">
-<img src="docs/edit1.png" height="300">
 
 - Modal u/ mengubah data mahasiswa
 - Form auto fill dengan data yang mau diedit
@@ -58,7 +52,6 @@ Jehian H1D022006 Shift C->D
 
 ### 5. Hapus Data (Delete)
 
-<img src="docs/konfirm.png" height="300">
 <img src="docs/del.png" height="300">
 
 - Konfirmasi dialog sebelum hapus data
